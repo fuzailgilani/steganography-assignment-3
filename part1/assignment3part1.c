@@ -8,6 +8,11 @@ int main(int argc, char * argv[]) {
 
 	FILE * fp = fopen(argv[1], "rb"); // open the file in binary read mode
 
+	if (fp == NULL) {
+		perror("File could not be opened");
+		return 1;
+	}
+
 	int c; // variable used to store each character as it is read from file
 	int sumOfUniqueChar = 0; // variable to store sum of the total unique characters in the file
 	int lengthOfFile = 0; // variable to store total number of characters the file contains
