@@ -3,12 +3,18 @@
 #include <math.h>
 
 double log_base_2(double num); // function prototype for log_base_2() function
+void printHelpMessage();
 
 int main(int argc, char * argv[]) {
 
+	if(argc != 2){ // if incorrect number of arguments for usage, print help message and quit execution
+		printHelpMessage();
+		return 0;
+	}
+
 	FILE * fp = fopen(argv[1], "rb"); // open the file in binary read mode
 
-	if (fp == NULL) {
+	if (fp == NULL) { // error handling for file open
 		perror("File could not be opened");
 		return 1;
 	}
@@ -64,4 +70,17 @@ int main(int argc, char * argv[]) {
 */
 double log_base_2(double num) {
 	return log(num) / log(2);
+}
+
+/*
+** void printHelpMessage()
+** Prints instructions for how to use file.
+** Parameters:
+** 	none
+** Returns:
+**	void
+*/
+void printHelpMessage(){
+	printf("To calculate the entropy of a file, use the following syntax, replacing the file name as needed.\nThe output will be printed to the screen, showing the number of unique characters, the entropy, and the ratio of entropy to greatest possible entropy.\n\n");
+	printf("./entropy file_name.txt\n\n\n");
 }
