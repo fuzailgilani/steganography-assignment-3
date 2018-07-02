@@ -88,19 +88,32 @@ int main(int argc, char * argv[]) {
 		}
 
 		// hiding message
+		int num_of_bits_hidden = 0;
+		int num_of_bits_changed = 0;
 		if (full_message_hidden == 0) {
 			printf("Not all of the message will be hidden, because the cover file is too small.\n");
 			for(int i = 0; i < cover_length; i++) {
 				int current_bit_to_hide = message_in_binary[i / 8][i % 8];
+				if(current_bit_to_hide != cover_in_binary[i][7]){
+					num_of_bits_changed++;
+				}
 				cover_in_binary[i][7] = current_bit_to_hide;
 			}
+			num_of_bits_hidden = cover_length;
 		} else {
 			for(int i = 0; i < hidden_message_length * 8; i++) {
 				int current_bit_to_hide = message_in_binary[i / 8][i % 8];
+				if(current_bit_to_hide != cover_in_binary[i][7]){
+					num_of_bits_changed++;
+				}
 				cover_in_binary[i][7] = current_bit_to_hide;
 			}
+			num_of_bits_hidden = hidden_message_length * 8;
 		}
 
+		printf("Number of bits hidden: %d\n", num_of_bits_hidden);
+
+		printf("Number of bits changed: %d\n", num_of_bits_changed);
 		// converting modified cover_in_binary into a string
 		char stego_string[cover_length + 1];
 		stego_string[cover_length] = '\0';
